@@ -14,8 +14,7 @@ public class CarrinhoResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public String busca(){
-		System.out.println("carrinho entrou aqui");
+	public String busca(){		
 		Carrinho carrinho = new CarrinhoDAO().busca(1l);
 		return carrinho.toXML();
 	}
