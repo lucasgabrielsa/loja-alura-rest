@@ -16,7 +16,7 @@ public class ProjetoDAO {
         banco.put(2l, new Projeto("Alura", 2l, 2012));        
 	}
 	
-	public void adicona(Projeto projeto) {
+	public void adiciona(Projeto projeto) {
 		long id = contador.incrementAndGet();
 		projeto.setId(id);
 		banco.put(id, projeto);
@@ -28,6 +28,10 @@ public class ProjetoDAO {
 	
 	public void remove(long id) {
 		banco.remove(id);
+	}
+	
+	public Map<Long, Projeto> getProjetos() {
+		return banco;
 	}
 	
 

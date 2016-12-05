@@ -11,13 +11,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 
+import br.com.alura.loja.util.XStreamUtil;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Carrinho {
 
 	private List<Produto> produtos = new ArrayList<Produto>();
 	private String rua;
 	private String cidade;
 	private long id;
-
+	
+	public Carrinho() {
+		
+	}
+	
 	public Carrinho adiciona(Produto produto) {
 		produtos.add(produto);
 		return this;
@@ -73,12 +81,26 @@ public class Carrinho {
 		}
 	}
 	
+	public Produto getProdutoById(long id) {
+		for (Iterator iterator = produtos.iterator(); iterator.hasNext();) {
+			Produto p = (Produto) iterator.next();
+			if(p.getId() == id) {				
+				return p;
+			}			
+		}
+		return null;
+	}
+	
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
 
 	public String toXML() {
-		return new XStream().toXML(this);
+		XStream xstream = XStreamUtil.getXStream();			
+		return xstream.toXML(this);
+	}
+	public String toJSON() {
+		return new Gson().toJson(this);
 	}
 
 }

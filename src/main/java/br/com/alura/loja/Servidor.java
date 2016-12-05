@@ -1,24 +1,25 @@
 package br.com.alura.loja;
 
+import java.io.IOException;
 import java.net.URI;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
-public class Servidor {
+public class Servidor {	
 	
-	private static HttpServer server;
-	
-	public static void paraServidor() {      
-	        server.stop();
-	}
-
-	public static void inicializaServidor() {
+	public static HttpServer inicializaServidor() throws IOException {
 		ResourceConfig config = new ResourceConfig().packages("br.com.alura.loja");
 		URI uri = URI.create("http://localhost:8080/");
-		server = GrizzlyHttpServerFactory.createHttpServer(uri, config);
-		System.out.println("Servidor rodando");		
+		HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uri, config);
+		return server;
+	}
+	
+	public static void main(String[] args) throws IOException {
+		HttpServer server = inicializaServidor();
+		System.in.read();
+		server.stop();
 	}
 
 }

@@ -1,12 +1,27 @@
 package br.com.alura.loja.modelo;
 
+import javax.ws.rs.core.Response;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.Gson;
+import com.thoughtworks.xstream.XStream;
+
+import br.com.alura.loja.util.XStreamUtil;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Produto {
 
 	private double preco;
 	private long id;
 	private String nome;
 	private int quantidade;
+	
+	public Produto() {
+		
+	}
 	
 	public Produto(long id, String nome, double preco, int quantidade) {
 		this.id = id;
@@ -38,4 +53,13 @@ public class Produto {
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
+	public String toJSON() {
+		return new Gson().toJson(this);
+	}
+
+	public String toXML() {
+		XStream xstream = XStreamUtil.getXStream();			
+		return xstream.toXML(this);
+	}
+	
 }
